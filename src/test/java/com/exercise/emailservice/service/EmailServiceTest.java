@@ -21,7 +21,7 @@ class EmailServiceTest {
     private EmailService emailService;
 
     @Test
-    public void testCallingEmailServiceWithInvalidInput() {
+    public void testCallingEmailServiceWithInvalidInput_NullToName() {
         EmailRequest emailRequest = EmailRequest.builder()
                 .from("abc@test.com")
                 .fromName("name")
@@ -31,6 +31,29 @@ class EmailServiceTest {
                 .build();
 
         String errorMessage = "to_name field must not be blank;";
+
+        EmailResponse actualResponse = emailService.sendEmail(emailRequest);
+
+        EmailResponse expectedResponse = EmailResponse.builder()
+                .statusCode(400)
+                .errorMessage(errorMessage)
+                .build();
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void testCallingEmailServiceWithInvalidInput_NameTooLong() {
+        EmailRequest emailRequest = EmailRequest.builder()
+                .from("abc@test.com")
+                .fromName("name name name name name name name name name name name name name name name name")
+                .to("def@test.com")
+                .toName("name")
+                .subject("Hi")
+                .body("body")
+                .build();
+
+        String errorMessage = "from_name field must be between 1 and 30 characters long;";
 
         EmailResponse actualResponse = emailService.sendEmail(emailRequest);
 
