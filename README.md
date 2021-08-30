@@ -1,7 +1,6 @@
 # Rupa Health Transactional Email Service
 
 ## Setup
-___
 To use the app, first add your Mailgun or Sendgrid API keys to `src/main/resources/application.properties`. The default email service is Sendgrid,
 that can be changed by changing the `email_service` properties in `application.properties` to `mailgun`.
 
@@ -10,7 +9,6 @@ To run the app, in the root folder, run command `./mvnw spring-boot:run`.
 The app will run on http://localhost:8080, the email API is on http://localhost:8080/email
 
 ## API Docs
-___
 Request:
 - `to`: the email address to send to, must not be null, must be in valid email format
 - `to_name`: the name to accompany the email, must not be null, must be between 1 and 30 characters long
@@ -49,7 +47,6 @@ Sample failure response:
 ```
 
 ## Technology Choice
-___
 I chose Spring Boot because it is a powerful framework for building RESTful APIs. I've used libraries such as validator and HTML sanitizer to check the input.
 There are all technologies I'm familiar with. 
 
@@ -57,7 +54,6 @@ With limited time to spend on this exercise, this setup allowed me to skip out o
 
 
 ## Tradeoffs and Additional Information
-___
 For this exercise, I know I have limited free time to work on this.
 I've decided to prioritize on getting the functionalities to work, particularly, making successful calls to Mailgun and Sendgrid,
 making unit tests something nice to have at the end if I have extra time.
