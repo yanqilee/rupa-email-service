@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @Log4j2
 @ConditionalOnProperty(name = "email_service", havingValue = "mailgun")
-public class MailgunEmailService extends EmailService {
+public class MailgunEmailClient implements EmailClient {
 
     @Value("${mailgun_url}")
     private String mailgunUrl;
@@ -27,7 +27,7 @@ public class MailgunEmailService extends EmailService {
     private String mailgunApiKey;
 
     @Override
-    EmailResponse callEmailClient(EmailRequest emailRequest) {
+    public EmailResponse sendEmail(EmailRequest emailRequest) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();

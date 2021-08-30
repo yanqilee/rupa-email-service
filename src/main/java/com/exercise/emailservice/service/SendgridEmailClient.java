@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 @Log4j2
 @ConditionalOnProperty(name = "email_service", havingValue = "sendgrid")
-public class SendgridEmailService extends EmailService {
+public class SendgridEmailClient implements EmailClient {
 
     @Value("${sendgrid_url}")
     private String sendgridUrl;
@@ -31,7 +31,7 @@ public class SendgridEmailService extends EmailService {
     private String sendgridApiKey;
 
     @Override
-    EmailResponse callEmailClient(EmailRequest emailRequest) {
+    public EmailResponse sendEmail(EmailRequest emailRequest) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();

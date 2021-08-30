@@ -5,6 +5,8 @@ import com.exercise.emailservice.model.EmailResponse;
 import lombok.extern.log4j.Log4j2;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -12,8 +14,12 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
+@Service
 @Log4j2
-public abstract class EmailService {
+public class EmailService {
+
+    @Autowired
+    private EmailClient emailClient;
 
     /**
      * Validate and sanitize input, then send an email based on provided details.
@@ -40,16 +46,8 @@ public abstract class EmailService {
                     .build();
         }
 
-        return callEmailClient(emailRequest);
+        return emailClient.sendEmail(emailRequest);
     }
-
-    /**
-     * Calling an email client to send an email based on emailRequest.
-     *
-     * @param emailRequest Request with details needed to send an email from one party to another
-     * @return Response with a status code and an error message if an error occurred
-     */
-    abstract EmailResponse callEmailClient(EmailRequest emailRequest);
 
     /**
      * Validate email API input based on rules set with validation annotations.
