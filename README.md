@@ -35,7 +35,7 @@ Sample request:
 Sample success response:
 ```
 {
-    "statusCode": 200,
+    "statusCode": 200
 }
 ```
 Sample failure response:
